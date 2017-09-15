@@ -15,6 +15,18 @@ abstract class Model
     protected $_required;
 
     /**
+     * Get table name
+     *
+     * @return string
+     */
+    abstract public static function getTableName() : string;
+
+    /**
+     * Validate fields
+     */
+    abstract public function validate() : void;
+
+    /**
      * Check whether fields were set
      *
      * @throws ModelException
@@ -87,18 +99,6 @@ abstract class Model
         $this->check_is_fields_set();
         return array_key_exists($field, $this->_fields) ? $this->_fields[$field] : null;
     }
-
-    /**
-     * Get table name
-     *
-     * @return string
-     */
-    abstract public static function getTableName():string;
-
-    /**
-     * Validate fields
-     */
-    abstract public function validate():void;
 
     /**
      * Create a record
