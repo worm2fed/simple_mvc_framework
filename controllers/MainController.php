@@ -1,15 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: worm2fed
- * Date: 16.09.17
- * Time: 1:24
- */
 
 namespace controllers;
 
 
-class MainController
-{
+use core\Controller;
+use core\View;
 
+class MainController extends Controller
+{
+    /**
+     * Show the index page
+     *
+     * @return void
+     */
+    public function indexAction()
+    : void {
+        View::render('index.html');
+    }
 }

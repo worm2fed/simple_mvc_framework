@@ -17,6 +17,6 @@ new ErrorHandler();
 // Create router
 $router = new Router();
 // Add routes
-$router->registerRoute('', ['controller' => 'Main', 'action' => 'index']);
+$router->registerRoute('', ['controller' => 'MainController', 'action' => 'index']);
 // Start routing
 $router->dispatch($_SERVER['QUERY_STRING']);
