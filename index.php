@@ -1,10 +1,16 @@
 <?php
 /**
- * @file This file is the application manager. Its only task is to accept the request (all user calls will go through
- * this file) and transfer it to the loader - loader.php
+ * @file This file is an entry point to app
  */
 
-// Display all errors (for dev)
-ini_set('display_errors', 1);
-// Plug loader
-require_once 'loader.php';
+use core\ErrorHandler;
+
+
+// Plug Config and Loader
+require_once 'Config.php';
+require_once 'core/Loader.php';
+
+// Register autoloader
+spl_autoload_register('core\Loader::autoload');
+// Set error handler
+new ErrorHandler();
