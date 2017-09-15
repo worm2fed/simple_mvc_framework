@@ -6,16 +6,16 @@ namespace core\exceptions;
 use Exception;
 
 /**
- * Class ModelException
+ * Class ControllerException
  * @package core\exceptions
  */
-class ModelException extends Exception
+class ControllerException extends Exception
 {
     protected $message = 'Unknown exception';
     protected $code = E_USER_ERROR;
 
     /**
-     * ModelException constructor
+     * ControllerException constructor
      *
      * @param string $message
      * @param int $code
