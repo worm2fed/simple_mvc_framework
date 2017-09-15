@@ -1,6 +1,6 @@
 <?php
 /**
- * Class for model exceptions
+ * Class for validation exceptions
  */
 
 namespace core\exceptions;
@@ -8,12 +8,12 @@ namespace core\exceptions;
 
 use Exception;
 
-class ModelException extends Exception
+class ValidationException extends Exception
 {
     protected $message = 'Unknown exception';
     protected $code = E_USER_ERROR;
     /**
-     * ModelException constructor
+     * ValidationException constructor
      *
      * @param string $message
      * @param int $code
