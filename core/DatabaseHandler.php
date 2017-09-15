@@ -97,7 +97,7 @@ class DatabaseHandler
             self::closeConnection();
             throw new DatabaseException($e->getMessage(), E_USER_ERROR);
         }
-        return $result;
+        return $result ?? [];
     }
 
     /**
@@ -119,7 +119,7 @@ class DatabaseHandler
             self::closeConnection();
             throw new DatabaseException($e->getMessage(), E_USER_ERROR);
         }
-        return $result;
+        return $result ?? [];
     }
 
     /**

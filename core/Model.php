@@ -8,7 +8,8 @@ use core\exceptions\ModelException;
  */
 abstract class Model
 {
-    private $_fields;
+    protected $_fields;
+    protected $_required;
 
     /**
      * Check whether fields were set
@@ -18,7 +19,7 @@ abstract class Model
     private function check_is_fields_set()
     :void {
         if (empty($this->_fields)) {
-            throw new ModelException('`You must call load() at first`', E_USER_ERROR);
+            throw new ModelException('`This model does not have fields`', E_USER_ERROR);
         }
     }
 
@@ -31,7 +32,7 @@ abstract class Model
     public function getId()
     : int {
         $id_field = $this->getTableName().'_id';
-        if (array_key_exists($id_field, $this->_fields)) {
+        if (isset($id_field, $this->_fields)) {
             return $this->_fields[$id_field];
         } else {
             throw new ModelException('`You must specify record id at first`', E_USER_ERROR);
@@ -46,8 +47,17 @@ abstract class Model
      */
     public function load(array $data, bool $from_db = false)
     :void {
-        $this->_fields = $from_db ? DatabaseHandler::selectFromTable($this->getTableName(),
-            $this->getTableName().'_id', current($data), null, true) : $data;
+        // If loading from database
+        if ($from_db) {
+            $data = DatabaseHandler::selectFromTable($this->getTableName(), $this->getTableName().'_id',
+                current($data), null, true);
+        }
+        // This is need to protect $_fields form loosing field name
+        if (!empty($data)) {
+            foreach ($data as $field => $value) {
+                $this->_fields[$field] = $value;
+            }
+        }
     }
 
     /**
