@@ -9,7 +9,8 @@ use mysqli;
 use mysqli_sql_exception;
 
 /**
- * This class provides interaction with database
+ * Class DatabaseHandler provides interaction with database
+ * @package core
  */
 class DatabaseHandler
 {

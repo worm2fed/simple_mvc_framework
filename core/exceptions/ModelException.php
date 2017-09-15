@@ -6,7 +6,8 @@ namespace core\exceptions;
 use Exception;
 
 /**
- * Class for model exceptions
+ * Class ModelException
+ * @package core\exceptions
  */
 class ModelException extends Exception
 {

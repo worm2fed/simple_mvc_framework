@@ -6,7 +6,8 @@ namespace core;
 use core\exceptions\ModelException;
 
 /**
- * Base class for models
+ * Class Model is base class for all models
+ * @package core
  */
 abstract class Model
 {

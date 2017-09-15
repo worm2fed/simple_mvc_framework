@@ -6,7 +6,8 @@ namespace core\exceptions;
 use Exception;
 
 /**
- * Class for validation exceptions
+ * Class ValidationException
+ * @package core\exceptions
  */
 class ValidationException extends Exception
 {

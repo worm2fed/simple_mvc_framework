@@ -6,7 +6,8 @@ namespace core\exceptions;
 use Exception;
 
 /**
- * Class for database exceptions
+ * Class DatabaseException
+ * @package core\exceptions
  */
 class DatabaseException extends Exception
 {

@@ -6,7 +6,8 @@ namespace core;
 use Config;
 
 /**
- * This class provides different tools
+ * Class SystemTools provides different tools
+ * @package core
  */
 class SystemTools
 {

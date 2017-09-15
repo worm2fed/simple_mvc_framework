@@ -6,7 +6,8 @@ namespace core;
 use Config;
 
 /**
- * This class provides error handler
+ * Class ErrorHandler provides error handler
+ * @package core
  */
 class ErrorHandler
 {

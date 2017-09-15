@@ -1,14 +1,15 @@
 <?php
-/**
- * This class provides Task model
- */
 
 namespace models;
 
 
 use core\exceptions\ValidationException;
-use Model;
+use core\Model;
 
+/**
+ * Class TaskModel
+ * @package models
+ */
 class TaskModel extends Model
 {
     public function __construct()

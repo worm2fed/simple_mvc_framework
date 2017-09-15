@@ -5,7 +5,8 @@ namespace core;
 use Config;
 
 /**
- * This class provides autoloader
+ * Class Loader provides autoloader
+ * @package core
  */
 class Loader
 {
