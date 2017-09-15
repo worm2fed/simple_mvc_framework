@@ -3,6 +3,9 @@
  * This class provides autoloader
  */
 
+namespace core;
+
+use Config;
 
 class Loader
 {
