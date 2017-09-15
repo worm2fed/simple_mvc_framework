@@ -7,6 +7,7 @@ namespace core;
 
 
 use Config;
+use exceptions\DatabaseException;
 use mysqli;
 use mysqli_sql_exception;
 
@@ -22,8 +23,8 @@ class DatabaseHandler
 
     /**
      * Initialise database descriptor
-     *
      * @return mysqli
+     * @throws DatabaseException
      */
     private static function getHandler()
     : mysqli {
@@ -31,13 +32,14 @@ class DatabaseHandler
         if (is_null(self::$_mHandler)) {
             try {
                 // Create new instance
-                self::$_mHandler = new mysqli(Config::SQL_HOST, Config::SQL_USER, Config::SQL_PASS, Config::SQL_DB);
+                self::$_mHandler = new mysqli(Config::SQL_HOST, Config::SQL_USER, Config::SQL_PASS,
+                    Config::SQL_DB);
                 // Set connection charset
                 self::$_mHandler->set_charset("utf8");
             } catch (mysqli_sql_exception $e) {
                 // Close descriptor and generate error
                 self::closeConnection();
-                trigger_error($e->getMessage(), E_USER_ERROR);
+                throw new DatabaseException($e->getMessage(), E_USER_ERROR);
             }
         }
         return self::$_mHandler;
@@ -56,6 +58,7 @@ class DatabaseHandler
      *
      * @param string $sqlQuery
      * @return bool
+     * @throws DatabaseException
      */
     private static function executeQuery(string $sqlQuery)
     : bool {
@@ -68,8 +71,7 @@ class DatabaseHandler
             return $statement_handler->execute();
         } catch (mysqli_sql_exception $e) {
             self::closeConnection();
-            trigger_error($e->getMessage(), E_USER_ERROR);
-            return false;
+            throw new DatabaseException($e->getMessage(), E_USER_ERROR);
         }
     }
 
@@ -78,6 +80,7 @@ class DatabaseHandler
      *
      * @param string $sqlQuery
      * @return array
+     * @throws DatabaseException
      */
     private static function getData(string $sqlQuery)
     : array {
@@ -92,9 +95,9 @@ class DatabaseHandler
             $result['num_rows'] = $get_result->num_rows;
         } catch (mysqli_sql_exception $e) {
             self::closeConnection();
-            trigger_error($e->getMessage(), E_USER_ERROR);
+            throw new DatabaseException($e->getMessage(), E_USER_ERROR);
         }
-        return $result ?? array();
+        return $result;
     }
 
     /**
@@ -102,6 +105,7 @@ class DatabaseHandler
      *
      * @param string $sqlQuery
      * @return array
+     * @throws DatabaseException
      */
     private static function getRow(string $sqlQuery)
     : array {
@@ -113,9 +117,9 @@ class DatabaseHandler
             $result = $get_result->fetch_assoc();
         } catch (mysqli_sql_exception $e) {
             self::closeConnection();
-            trigger_error($e->getMessage(), E_USER_ERROR);
+            throw new DatabaseException($e->getMessage(), E_USER_ERROR);
         }
-        return $result ?? array();
+        return $result;
     }
 
     /**
