@@ -3,7 +3,7 @@
  * Class for database exceptions
  */
 
-namespace exceptions;
+namespace core\exceptions;
 
 
 use Exception;

@@ -7,7 +7,7 @@ namespace core;
 
 
 use Config;
-use exceptions\DatabaseException;
+use core\exceptions\DatabaseException;
 use mysqli;
 use mysqli_sql_exception;
 

@@ -1,19 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: worm2fed
- * Date: 15.09.17
- * Time: 18:58
+ * Class for model exceptions
  */
 
 namespace exceptions;
 
 
-class ModelException
-{
+use Exception;
 
+class ModelException extends Exception
+{
     /**
-     * ModelException constructor.
+     * ModelException constructor
+     *
      * @param string $string
      * @param int $E_USER_ERROR
      */
