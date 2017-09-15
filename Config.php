@@ -36,12 +36,6 @@ class Config
     const DISPLAY_CLASS		= 'php_error';
     // Log to file
     const LOG_ERRORS		= false;
-    // Send to mail
-    const SEND_ERROR_MAIL	= false;
-    // Email address for errors
-    const ADMIN_ERROR_MAIL	= 'worm2fed@mail.ru';
-    // Email address for sender
-    const SENDMAIL_FROM		= 'admin@task.ru';
     // Type of errors to handle
     const ERROR_TYPES 		= E_ALL;
     // Path to log file

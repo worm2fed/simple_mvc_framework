@@ -10,12 +10,14 @@ use Config;
 use mysqli;
 use mysqli_sql_exception;
 
-class DatabaseHandler {
+class DatabaseHandler
+{
     // Stores instance of handler
     private static $_mHandler;
 
     // private-construct do not allow to create instances directly
-    private function __construct() {
+    private function __construct()
+    {
     }
 
     /**
