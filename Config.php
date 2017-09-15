@@ -37,7 +37,7 @@ class Config
     // Log to file
     const LOG_ERRORS		= false;
     // Type of errors to handle
-    const ERROR_TYPES 		= E_ALL;
+    const ERROR_TYPE 		= E_ALL;
     // Path to log file
     const LOG_ERRORS_FILE 	= './error.log';
     // Error types and its levels

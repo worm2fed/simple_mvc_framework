@@ -11,10 +11,10 @@ use Config;
  */
 class ErrorHandler
 {
-    public function __construct(int $errTypes = Config::ERROR_TYPES)
+    public function __construct(int $errType = Config::ERROR_TYPE)
     {
         // Set error handler
-        set_error_handler(array($this, 'handler'), $errTypes);
+        set_error_handler(array($this, 'handler'), $errType);
         // Catch critical errors
         register_shutdown_function(array($this, 'fatalErrorHandler'));
         // Start output buffer
