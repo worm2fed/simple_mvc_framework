@@ -31,15 +31,15 @@ class Config
 
     # Error handler settings
     // Debug mode
-    const DEBUGGING			= true;
+    const DEBUGGING			= false;
     // Class (css style) to show error
     const DISPLAY_CLASS		= 'php_error';
     // Log to file
-    const LOG_ERRORS		= false;
+    const LOG_ERRORS		= true;
     // Type of errors to handle
     const ERROR_TYPE 		= E_ALL;
     // Path to log file
-    const LOG_ERRORS_FILE 	= './error.log';
+    const LOG_ERRORS_FILE 	= self::ROOT_DIR . '/error.log';
     // Error types and its levels
     public static $ERROR_LEVELS = [
         1 		=> 'E_ERROR',
