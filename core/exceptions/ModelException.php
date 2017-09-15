@@ -1,17 +1,18 @@
 <?php
-/**
- * Class for model exceptions
- */
 
 namespace core\exceptions;
 
 
 use Exception;
 
+/**
+ * Class for model exceptions
+ */
 class ModelException extends Exception
 {
     protected $message = 'Unknown exception';
     protected $code = E_USER_ERROR;
+
     /**
      * ModelException constructor
      *

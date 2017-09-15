@@ -1,7 +1,4 @@
 <?php
-/**
- * This class provides interaction with database
- */
 
 namespace core;
 
@@ -11,6 +8,9 @@ use core\exceptions\DatabaseException;
 use mysqli;
 use mysqli_sql_exception;
 
+/**
+ * This class provides interaction with database
+ */
 class DatabaseHandler
 {
     // Stores instance of handler

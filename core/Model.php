@@ -1,6 +1,8 @@
 <?php
 
-use core\DatabaseHandler;
+namespace core;
+
+
 use core\exceptions\ModelException;
 
 /**

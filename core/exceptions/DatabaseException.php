@@ -1,13 +1,13 @@
 <?php
-/**
- * Class for database exceptions
- */
 
 namespace core\exceptions;
 
 
 use Exception;
 
+/**
+ * Class for database exceptions
+ */
 class DatabaseException extends Exception
 {
     protected $message = 'Unknown exception';

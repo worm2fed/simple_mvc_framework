@@ -1,17 +1,18 @@
 <?php
-/**
- * Class for validation exceptions
- */
 
 namespace core\exceptions;
 
 
 use Exception;
 
+/**
+ * Class for validation exceptions
+ */
 class ValidationException extends Exception
 {
     protected $message = 'Unknown exception';
     protected $code = E_USER_ERROR;
+
     /**
      * ValidationException constructor
      *

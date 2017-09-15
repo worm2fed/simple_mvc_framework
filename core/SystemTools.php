@@ -1,13 +1,13 @@
 <?php
-/**
- * This class provides different tools
- */
 
 namespace core;
 
 
 use Config;
 
+/**
+ * This class provides different tools
+ */
 class SystemTools
 {
     private function __construct()

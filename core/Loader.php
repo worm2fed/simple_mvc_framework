@@ -1,12 +1,12 @@
 <?php
-/**
- * This class provides autoloader
- */
 
 namespace core;
 
 use Config;
 
+/**
+ * This class provides autoloader
+ */
 class Loader
 {
     public function __construct() {

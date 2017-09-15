@@ -1,13 +1,13 @@
 <?php
-/**
- * This class provides error handler
- */
 
 namespace core;
 
 
 use Config;
 
+/**
+ * This class provides error handler
+ */
 class ErrorHandler
 {
     public function __construct(int $errTypes = Config::ERROR_TYPES)
