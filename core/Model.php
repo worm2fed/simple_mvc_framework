@@ -1,61 +1,119 @@
 <?php
 
+use core\DatabaseHandler;
+use core\exceptions\ModelException;
+
 /**
- * Base class for model
+ * Base class for models
  */
 abstract class Model
 {
-    protected $table_name   = '';
-    protected $fields       = [];
-    protected $validators   = [];
-    protected $errors       = [];
+    private $_fields;
 
-    public function __construct()
-    {
+    /**
+     * Check whether fields were set
+     *
+     * @throws ModelException
+     */
+    private function check_is_fields_set()
+    :void {
+        if (empty($this->_fields)) {
+            throw new ModelException('`You must call load() at first`', E_USER_ERROR);
+        }
     }
 
-    public function getFields()
-    {
-
+    /**
+     * Get record id
+     *
+     * @return int
+     * @throws ModelException
+     */
+    public function getId()
+    : int {
+        $id_field = $this->getTableName().'_id';
+        if (array_key_exists($id_field, $this->_fields)) {
+            return $this->_fields[$id_field];
+        } else {
+            throw new ModelException('`You must specify record id at first`', E_USER_ERROR);
+        }
     }
 
-    public function isFieldRequired()
-    {
-
+    /**
+     * Load model from array or database
+     *
+     * @param array $data
+     * @param bool $from_db
+     */
+    public function load(array $data, bool $from_db = false)
+    :void {
+        $this->_fields = $from_db ? DatabaseHandler::selectFromTable($this->getTableName(),
+            $this->getTableName().'_id', current($data), null, true) : $data;
     }
 
-    public function getValidators()
+    /**
+     * Set model field value
+     *
+     * @param $field
+     * @param $value
+     * @return mixed
+     */
+    public function __set($field, $value)
     {
-
+        return $this->_fields[$field] = $value;
     }
 
-    public function validate()
+    /**
+     * Get model field value
+     *
+     * @param $field
+     * @return mixed
+     * @throws ModelException
+     */
+    public function __get($field)
     {
-
+        $this->check_is_fields_set();
+        return array_key_exists($field, $this->_fields) ? $this->_fields[$field] : null;
     }
 
-    public function getErrors()
-    {
+    /**
+     * Get table name
+     *
+     * @return string
+     */
+    abstract public static function getTableName():string;
 
-    }
+    /**
+     * Validate fields
+     */
+    abstract public function validate():void;
 
-    public function load()
-    {
-
-    }
-
+    /**
+     * Create a record
+     */
     public function create()
-    {
-
+    :void {
+        $this->check_is_fields_set();
+        $this->validate();
+        DatabaseHandler::insertToTable($this->getTableName(), $this->_fields);
     }
 
+    /**
+     * Update a record
+     */
     public function update()
-    {
-
+    :void {
+        $this->check_is_fields_set();
+        $this->validate();
+        DatabaseHandler::updateInTable($this->getTableName(), $this->_fields, $this->getTableName().'_id',
+            $this->getId());
     }
 
+    /**
+     * Delete a record
+     */
     public function delete()
-    {
-
+    :void {
+        $this->check_is_fields_set();
+        DatabaseHandler::deleteFromTable($this->getTableName(), $this->getTableName().'_id', $this->getId());
     }
 }

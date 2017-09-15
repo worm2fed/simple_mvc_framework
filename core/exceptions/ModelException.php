@@ -3,20 +3,24 @@
  * Class for model exceptions
  */
 
-namespace exceptions;
+namespace core\exceptions;
 
 
 use Exception;
 
 class ModelException extends Exception
 {
+    protected $message = 'Unknown exception';
+    protected $code = E_USER_ERROR;
     /**
      * ModelException constructor
      *
-     * @param string $string
-     * @param int $E_USER_ERROR
+     * @param string $message
+     * @param int $code
      */
-    public function __construct($string, $E_USER_ERROR)
+    public function __construct($message, $code)
     {
+        $this->message = $message;
+        $this->code = $code;
     }
 }
