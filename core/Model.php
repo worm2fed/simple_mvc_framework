@@ -4,6 +4,7 @@ namespace core;
 
 
 use core\exceptions\ModelException;
+use core\exceptions\ValidationException;
 
 /**
  * Class Model is base class for all models
@@ -11,8 +12,8 @@ use core\exceptions\ModelException;
  */
 abstract class Model
 {
-    protected $_fields;
-    protected $_required;
+    protected $_fields      = [];
+    protected $_required    = [];
 
     /**
      * Get table name
@@ -24,7 +25,15 @@ abstract class Model
     /**
      * Validate fields
      */
-    abstract public function validate() : void;
+    public function validate()
+    : void {
+        // Check whether required fields are set
+        foreach ($this->_required as $required) {
+            if (!isset($this->_fields[$required])) {
+                throw new ValidationException("`$required can not be blank`", E_USER_ERROR);
+            }
+        }
+    }
 
     /**
      * Check whether fields were set
@@ -101,11 +110,19 @@ abstract class Model
     }
 
     /**
+     * Before create hook
+     */
+    protected function beforeCreate()
+    : void {
+    }
+
+    /**
      * Create a record
      */
     public function create()
     :void {
         $this->check_is_fields_set();
+        $this->beforeCreate();
         $this->validate();
         DatabaseHandler::insertToTable($this->getTableName(), $this->_fields);
     }
