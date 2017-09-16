@@ -6,15 +6,15 @@ namespace controllers;
 use core\Controller;
 use core\View;
 
-class MainController extends Controller
+class TaskController extends Controller
 {
     /**
-     * Show the index page
+     * Show the index page - page with all tasks
      *
      * @return void
      */
     public function indexAction()
     : void {
-        View::render('index.html');
+        View::render('task/index.php');
     }
 }
