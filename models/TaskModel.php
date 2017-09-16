@@ -16,12 +16,10 @@ class TaskModel extends Model
     {
         // Set fields
         $this->_fields = array_fill_keys([
-            'task_id', 'status', 'name', 'email', 'text', 'image'
+            'task_id', 'status', 'username', 'email', 'text', 'image', 'published'
         ], null);
         // Specify required fields
-        $this->_required = ['name', 'email', 'text'];
-        // Specify default values
-        $this->status = 0;
+        $this->_required = ['username', 'email', 'text'];
     }
 
     /**
@@ -49,5 +47,11 @@ class TaskModel extends Model
         if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
             throw new ValidationException("`email has wrong format`", E_USER_ERROR);
         }
+    }
+
+    protected function beforeCreate()
+    : void {
+        $this->status = 0;
+        $this->published = time();
     }
 }

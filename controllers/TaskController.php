@@ -15,6 +15,16 @@ class TaskController extends Controller
      */
     public function indexAction()
     : void {
-        View::render('task/index.php');
+        View::renderView('task/index.php', [], 'main.php');
+    }
+
+    /**
+     * Create a task
+     *
+     * @return void
+     */
+    public function createAction()
+    : void {
+
     }
 }
