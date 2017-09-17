@@ -54,6 +54,8 @@ class TaskModel extends Model
             $params .= (isset($args['page']) and $args['page'] > 1) ?
                 ' LIMIT ' . Config::PAGINATION_LIMIT * ($args['page'] - 1) . ', ' . Config::PAGINATION_LIMIT :
                 ' LIMIT ' . Config::PAGINATION_LIMIT;
+        } else {
+            $params = ' LIMIT ' . Config::PAGINATION_LIMIT;
         }
         // Fill array with tasks
         $tasks = [];
@@ -78,14 +80,12 @@ class TaskModel extends Model
     /**
      * Check is user owner
      *
-     * @param int $user_id
      * @return bool
      */
-    public function isUserOwner(int $user_id)
+    public function isUserOwner()
     : bool {
-        $user = new self();
-        $user->load(['user_id' => $user_id], true);
-        return $user->username === $this->email;
+        $user = UserModel::getUserIfLoggedIn();
+        return $user->username == $this->email;
     }
 
     /**

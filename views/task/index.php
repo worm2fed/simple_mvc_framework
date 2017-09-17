@@ -40,7 +40,7 @@
                 <div class="item-row">
                     <div class="item-col fixed item-col-check">
                         <label class="item-check" id="select-all-items">
-                            <input <?php if (\models\UserModel::isGuest()): ?> disabled <?php elseif ($task->isUserOwner($session->_user_id)): ?> disabled <?php endif; ?> type="checkbox" class="checkbox" <?php if ($task->status): ?> checked="" <?php endif; ?>>
+                            <input <?php if (\models\UserModel::isGuest()): ?> disabled <?php elseif (!$task->isUserOwner()): ?> disabled <?php endif; ?> type="checkbox" class="checkbox" <?php if ($task->status): ?> checked="" <?php endif; ?>>
                             <span></span>
                         </label>
                     </div>

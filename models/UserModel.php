@@ -37,6 +37,20 @@ class UserModel extends Model
         return 'user';
     }
 
+    /**
+     * Get user instance
+     *
+     * @return UserModel
+     */
+    public static function getUserIfLoggedIn()
+    : UserModel {
+        $user = new self();
+        if (!self::isGuest()) {
+            $user->load(['user_id' => SessionHandler::getInstance()->_user_id], true);
+        }
+        return $user;
+    }
+
     protected function beforeCreate()
     : void {
         // Check if exists
