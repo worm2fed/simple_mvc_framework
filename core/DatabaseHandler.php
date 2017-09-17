@@ -127,14 +127,17 @@ class DatabaseHandler
      * Delete item from table
      *
      * @param string $table_name
-     * @param string $where_field
-     * @param string $where_value
+     * @param array $where
      * @return bool
      */
-    public static function deleteFromTable(string $table_name, string $where_field, string $where_value)
+    public static function deleteFromTable(string $table_name, array $where)
     : bool {
         // Compile query
-        $sqlQuery = "DELETE FROM $table_name WHERE $where_field='$where_value'";
+        $sqlQuery = "DELETE FROM $table_name WHERE";
+        foreach ($where as $field => $value) {
+            $sqlQuery .= " $field = '$value' AND";
+        }
+        $sqlQuery = substr($sqlQuery, 0, -3);
         return self::executeQuery($sqlQuery);
     }
 
@@ -143,13 +146,16 @@ class DatabaseHandler
      *
      * @param string $table_name
      * @param string $count_field
-     * @param string $where_field
-     * @param string $where_value
+     * @param array $where
      * @return int
      */
-    public static function countEntry(string $table_name, string $count_field, string $where_field, string $where_value)
+    public static function countEntry(string $table_name, string $count_field, array $where)
     : int {
-        $sqlQuery = "SELECT COUNT($count_field) AS num FROM $table_name WHERE $where_field='$where_value'";
+        $sqlQuery = "SELECT COUNT($count_field) AS num FROM $table_name WHERE";
+        foreach ($where as $field => $value) {
+            $sqlQuery .= " $field = '$value' AND";
+        }
+        $sqlQuery = substr($sqlQuery, 0, -3);
         return self::executeQuery($sqlQuery)['num'];
     }
 
@@ -186,16 +192,20 @@ class DatabaseHandler
      * Select all data from table
      *
      * @param string $table_name
-     * @param string $where_field
-     * @param string $where_value
+     * @param array $where
      * @param string|null $params
      * @param bool $only_row
      * @return array
      */
-    public static function selectFromTable(string $table_name, string $where_field, string $where_value,
-                                           string $params = null, bool $only_row = false)
+    public static function selectFromTable(string $table_name, array $where, string $params = null,
+                                           bool $only_row = false)
     : array {
-        $sqlQuery = "SELECT * FROM $table_name WHERE $where_field='$where_value' $params";
+        $sqlQuery = "SELECT * FROM $table_name WHERE";
+        foreach ($where as $field => $value) {
+            $sqlQuery .= " $field = '$value' AND";
+        }
+        $sqlQuery = substr($sqlQuery, 0, -3);
+        $sqlQuery .= $params;
         return $only_row ? self::getRow($sqlQuery) : self::getData($sqlQuery);
     }
 
@@ -204,19 +214,22 @@ class DatabaseHandler
      *
      * @param string $table
      * @param array $data
-     * @param string $where_field
-     * @param string $where_value
+     * @param array $where
      * @return bool
      */
 
-    public static function updateInTable(string $table, array $data, string $where_field, string $where_value)
+    public static function updateInTable(string $table, array $data, array $where)
     : bool {
         $sqlQuery = "UPDATE $table SET ";
         foreach ($data as $column => $value) {
-            $sqlQuery .= "$column='$value', ";
+            $sqlQuery .= "$column = '$value', ";
         }
         $sqlQuery = substr($sqlQuery, 0, -2);
-        $sqlQuery .= " WHERE $where_field='$where_value'";
+        $sqlQuery .= " WHERE ";
+        foreach ($where as $field => $value) {
+            $sqlQuery .= " $field = '$value' AND";
+        }
+        $sqlQuery = substr($sqlQuery, 0, -3);
         return self::executeQuery($sqlQuery);
     }
 }
