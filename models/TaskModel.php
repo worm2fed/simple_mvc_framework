@@ -81,10 +81,10 @@ class TaskModel extends Model
      *
      * @return bool
      */
-    public function isUserOwner()
+    public function isUserOwnerOrAdmin()
     : bool {
         $user = UserModel::getUserIfLoggedIn();
-        return $user->username == $this->email;
+        return $user->username == $this->email or $user->is_admin;
     }
 
     /**
