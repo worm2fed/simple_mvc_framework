@@ -73,8 +73,7 @@ abstract class Model
     :void {
         // If loading from database
         if ($from_db) {
-            $data = DatabaseHandler::selectFromTable($this->getTableName(), $this->getTableName().'_id',
-                current($data), null, true);
+            $data = DatabaseHandler::selectFromTable($this->getTableName(), $data, null, true);
         }
         // This is need to protect $_fields form loosing field name
         if (!empty($data)) {
@@ -134,8 +133,8 @@ abstract class Model
     :void {
         $this->check_is_fields_set();
         $this->validate();
-        DatabaseHandler::updateInTable($this->getTableName(), $this->_fields, $this->getTableName().'_id',
-            $this->getId());
+        DatabaseHandler::updateInTable($this->getTableName(), $this->_fields,
+            [$this->getTableName().'_id' => $this->getId()]);
     }
 
     /**
@@ -144,6 +143,6 @@ abstract class Model
     public function delete()
     :void {
         $this->check_is_fields_set();
-        DatabaseHandler::deleteFromTable($this->getTableName(), $this->getTableName().'_id', $this->getId());
+        DatabaseHandler::deleteFromTable($this->getTableName(), [$this->getTableName().'_id' => $this->getId()]);
     }
 }
