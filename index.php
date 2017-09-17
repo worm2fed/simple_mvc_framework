@@ -4,6 +4,9 @@
  * @file This file is an entry point to app
  */
 
+// Start session
+session_start();
+
 use core\ErrorHandler;
 use core\Router;
 
