@@ -91,12 +91,18 @@ class TaskController extends Controller
         $task = new TaskModel();
         try {
             $task->load(['task_id' => $_REQUEST['task_id']], true);
-            $task->text = $_REQUEST['text'];
+            if (!$task->isUserOwnerOrAdmin()) {
+                SystemTools::redirect('/');
+            }
+            if (isset($_REQUEST['text'])) {
+                $task->text = $_REQUEST['text'];
+            } else {
+                $task->status = !$task->status;
+            }
             $task->update();
         } catch (DatabaseException $e) {
         } catch (ModelException $e) {
         }
-
         SystemTools::redirect('/');
     }
 

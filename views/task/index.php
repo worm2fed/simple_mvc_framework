@@ -48,7 +48,7 @@
                 <div class="item-row">
                     <div class="item-col fixed item-col-check">
                         <label class="item-check" id="select-all-items">
-                            <input <?php if (\models\UserModel::isGuest()): ?> disabled <?php elseif (!$task->isUserOwnerOrAdmin()): ?> disabled <?php endif; ?> type="checkbox" class="checkbox" <?php if ($task->status): ?> checked="" <?php endif; ?>>
+                            <input onclick="status('<?= $task->task_id ?>')" <?php if (\models\UserModel::isGuest()): ?> disabled <?php elseif (!$task->isUserOwnerOrAdmin()): ?> disabled <?php endif; ?> type="checkbox" class="checkbox" <?php if ($task->status): ?> checked="" <?php endif; ?>>
                             <span></span>
                         </label>
                     </div>
@@ -133,5 +133,8 @@
     function update(task_id, text) {
         $('#task_id').val(task_id);
         $('#text').val(text);
+    }
+    function status(task_id) {
+        $.post( "/update", { task_id: task_id } );
     }
 </script>
