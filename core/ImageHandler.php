@@ -71,6 +71,7 @@ class ImageHandler {
     : void {
         $path = Config::IMAGE_DIR . $filename;
         $image_type = $image_type ?? $this->_image_type;
+        $this->resizeToRequired();
         switch ($image_type) {
             case IMAGETYPE_JPEG:
                 imagejpeg($this->_image, $path, $compression);
@@ -118,7 +119,7 @@ class ImageHandler {
      *
      * @return int
      */
-    function getWidth()
+    public function getWidth()
     : int {
         return imagesx($this->_image);
     }
@@ -128,7 +129,7 @@ class ImageHandler {
      *
      * @return int
      */
-    function getHeight()
+    public function getHeight()
     : int {
         return imagesy($this->_image);
     }
@@ -138,7 +139,7 @@ class ImageHandler {
      *
      * @param int $height
      */
-    function resizeToHeight(int $height)
+    public function resizeToHeight(int $height)
     : void {
         $ratio = $height / $this->getHeight();
         $width = $this->getWidth() * $ratio;
@@ -150,7 +151,7 @@ class ImageHandler {
      *
      * @param int $width
      */
-    function resizeToWidth(int $width)
+    public function resizeToWidth(int $width)
     : void {
         $ratio = $width / $this->getWidth();
         $height = $this->getheight() * $ratio;
@@ -162,7 +163,7 @@ class ImageHandler {
      *
      * @param int $scale
      */
-    function scale(int $scale)
+    public function scale(int $scale)
     : void {
         $width = $this->getWidth() * $scale/100;
         $height = $this->getheight() * $scale/100;
@@ -175,11 +176,26 @@ class ImageHandler {
      * @param int $width
      * @param int $height
      */
-    function resize(int $width, int $height)
+    public function resize(int $width, int $height)
     : void {
         $new_image = imagecreatetruecolor($width, $height);
         imagecopyresampled($new_image, $this->_image, 0, 0, 0, 0, $width, $height,
             $this->getWidth(), $this->getHeight());
         $this->_image = $new_image;
+    }
+
+    /**
+     * Resize to required size
+     */
+    private function resizeToRequired()
+    : void {
+        // Resize width
+        if ($this->getWidth() > Config::IMAGE_MAX_WIDTH) {
+            $this->resizeToWidth(Config::IMAGE_MAX_WIDTH);
+        }
+        // Resize height
+        if ($this->getHeight() > Config::IMAGE_MAX_HEIGHT) {
+            $this->resizeToHeight(Config::IMAGE_MAX_HEIGHT);
+        }
     }
 }

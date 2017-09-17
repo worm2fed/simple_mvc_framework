@@ -17,10 +17,13 @@ class Config
     // Stores session time in hours
     const SESSION_TIME = 3;
 
+    # Image settings
     // Stores full path to image dir
     const IMAGE_DIR = self::ROOT_DIR . '/static/images/';
+    const IMAGE_MAX_WIDTH = 320;
+    const IMAGE_MAX_HEIGHT = 240;
 
-    // Database connection settings
+    # Database connection settings
     const SQL_HOST 	= 'localhost';
     const SQL_DB 	= 'task_manager';
     const SQL_USER 	= 'root';

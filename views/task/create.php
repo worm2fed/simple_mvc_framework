@@ -59,7 +59,7 @@
 
 <!-- Start login modal -->
 <div class="modal fade" id="preview-modal">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"> Preview </h4>
@@ -87,7 +87,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 form-control-label text-xs-right"> Image: </label>
                     <div class="col-sm-10">
-                        <img src="" id="image-preview" style="width: 100%">
+                        <img src="" id="image-preview" style="max-width: 100%">
                     </div>
                 </div>
             </div>
