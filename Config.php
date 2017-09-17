@@ -17,6 +17,9 @@ class Config
     // Stores session time in hours
     const SESSION_TIME = 3;
 
+    // Stores full path to image dir
+    const IMAGE_DIR = self::ROOT_DIR . '/static/images/';
+
     // Database connection settings
     const SQL_HOST 	= 'localhost';
     const SQL_DB 	= 'task_manager';

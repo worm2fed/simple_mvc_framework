@@ -3,6 +3,7 @@
 namespace core;
 
 
+use Config;
 use core\exceptions\ImageException;
 
 /**
@@ -51,15 +52,16 @@ class ImageHandler {
     public function save(string $filename, int $image_type = IMAGETYPE_JPEG, int $compression = 75,
                          int $permissions = null)
     : void {
+        $path = Config::IMAGE_DIR . $filename;
         switch ($image_type) {
             case IMAGETYPE_JPEG:
-                imagejpeg($this->_image, $filename, $compression);
+                imagejpeg($this->_image, $path, $compression);
                 break;
             case IMAGETYPE_GIF:
-                imagegif($this->_image, $filename);
+                imagegif($this->_image, $path);
                 break;
             case IMAGETYPE_PNG:
-                imagepng($this->_image, $filename);
+                imagepng($this->_image, $path);
                 break;
             default:
                 throw new ImageException("`$image_type type does not supported`", E_USER_ERROR);
