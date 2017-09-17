@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: worm2fed
- * Date: 16.09.17
- * Time: 20:19
- */
 
 namespace models;
 
@@ -13,6 +7,7 @@ use Config;
 use core\DatabaseHandler;
 use core\exceptions\AuthenticationException;
 use core\Model;
+use core\SessionHandler;
 use core\SystemTools;
 
 /**
@@ -54,27 +49,24 @@ class UserModel extends Model
      */
     public static function isGuest()
     : bool{
+        $session = SessionHandler::getInstance();
         // Check is hash and user id are set
-        if (isset($_COOKIE['_user_hash']) and isset($_SESSION['_user_id'])) {
-            // Check salt
-            if ($_SESSION['_user_salt'] != sha1(crypt($_SESSION['_user_id'], $_COOKIE['_user_hash']))) {
-                return false;
-            } else {
-                // Get user data
-                $user_data = DatabaseHandler::selectFromTable(self::getTableName(),
-                    ['user_id' => $_SESSION['_user_id']], null, true);
-                // Check
-                if (($user_data['_user_hash'] != $_COOKIE['_user_hash']) or
-                    ($user_data['_user_id'] != $_SESSION['_user_id'])) {
-                    self::logout();
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        } else {
-            return false;
+        if (!isset($_COOKIE['_user_hash']) or !isset($session->_user_id)) {
+            return true;
         }
+        // Check salt
+        if ($session->_user_salt != sha1(crypt($session->_user_id, $_COOKIE['_user_hash']))) {
+            return true;
+        }
+        // Get user data
+        $user_data = DatabaseHandler::selectFromTable(self::getTableName(), ['user_id' => $session->_user_id],
+            null, true);
+        // Check
+        if (($user_data['hash'] != $_COOKIE['_user_hash']) or ($user_data['user_id'] != $session->_user_id)) {
+            self::logout();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -98,15 +90,16 @@ class UserModel extends Model
         $user_data = new self();
         $user_data->load(['username' => $username, 'password' => sha1($password)], true);
         // Set up hash code
-        $user_data->hash = SystemTools::generate_hash_code(10);
+        $user_data->hash = sha1(SystemTools::generate_hash_code(10));
         // Save hash to database
         $user_data->update();
         // Login
         $time = time() + 3600 * Config::SESSION_TIME;
-        setCookie('_user_hash', $user_data->hash, $time);
+        setCookie('_user_hash', $user_data->hash, $time, '/', $_SERVER['SERVER_NAME']);
         // Set session values
-        $_SESSION['_user_id'] = $user_data->user_id;
-        $_SESSION['_user_salt'] = sha1(crypt($user_data->user_id, $user_data->hash));
+        $session = SessionHandler::getInstance();
+        $session->_user_id = $user_data->user_id;
+        $session->_user_salt = sha1(crypt($user_data->user_id, $user_data->hash));
     }
 
     /**
@@ -115,7 +108,6 @@ class UserModel extends Model
     public static function logout()
     : void {
         setCookie('_user_hash', '', time() -3600 * Config::SESSION_TIME, '');
-        session_unset();
-        session_destroy();
+        SessionHandler::getInstance()->destroy();
     }
 }

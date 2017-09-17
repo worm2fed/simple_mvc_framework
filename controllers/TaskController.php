@@ -4,7 +4,10 @@ namespace controllers;
 
 
 use core\Controller;
+use core\SessionHandler;
+use core\SystemTools;
 use core\View;
+use models\UserModel;
 
 class TaskController extends Controller
 {
@@ -19,12 +22,33 @@ class TaskController extends Controller
     }
 
     /**
+     * Login
+     *
+     * @return void
+     */
+    public function loginAction()
+    : void {
+        UserModel::login($_REQUEST['username'], $_REQUEST['password']);
+        SystemTools::redirect('/');
+    }
+
+    /**
+     * Logout
+     *
+     * @return void
+     */
+    public function logoutAction()
+    : void {
+        UserModel::logout();
+        SystemTools::redirect('/');
+    }
+
+    /**
      * Create a task
      *
      * @return void
      */
     public function createAction()
     : void {
-
     }
 }
