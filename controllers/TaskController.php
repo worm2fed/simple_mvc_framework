@@ -19,7 +19,9 @@ class TaskController extends Controller
      */
     public function indexAction()
     : void {
-        View::renderView('task/index.php', ['page_class' => 'items-list-page'], 'main.php');
+        $data['tasks'] = TaskModel::find([], $_REQUEST);
+        $data['page_class'] = 'items-list-page';
+        View::renderView('task/index.php', $data, 'main.php');
     }
 
     /**

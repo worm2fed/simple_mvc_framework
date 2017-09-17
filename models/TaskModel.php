@@ -3,6 +3,9 @@
 namespace models;
 
 
+use Config;
+use core\DatabaseHandler;
+use core\exceptions\DatabaseException;
 use core\exceptions\ModelException;
 use core\exceptions\ValidationException;
 use core\Model;
@@ -32,6 +35,31 @@ class TaskModel extends Model
     public static function getTableName()
     : string {
         return 'task';
+    }
+
+    /**
+     * Find tasks
+     *
+     * @param array $where
+     * @param array $args
+     * @return array
+     */
+    public static function find(array $where = [], array $args = [])
+    : array {
+        $params = '';
+        if (!empty($args)) {
+            // Add sort
+            if (isset($args['order_by'])) {
+                $params = ' ORDER BY ' . $args['order_by'];
+            }
+            // Add pagination
+            if (isset($args['page']) and $args['page'] > 1) {
+                $params .= ' LIMIT ' . Config::PAGINATION_LIMIT * ($args['page'] - 1) . ', ' . Config::PAGINATION_LIMIT;
+            } else {
+                $params .= ' LIMIT ' . Config::PAGINATION_LIMIT;
+            }
+        }
+        return DatabaseHandler::selectFromTable(self::getTableName(), $where, $params);
     }
 
     /**

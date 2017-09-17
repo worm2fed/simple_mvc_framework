@@ -19,7 +19,7 @@ class Config
 
     // Stores number of items per page for pagination
     const PAGINATION_LIMIT = 3;
-    
+
     # Image settings
     // Stores full path to image dir
     const IMAGE_DIR = self::ROOT_DIR . '/static/images/';

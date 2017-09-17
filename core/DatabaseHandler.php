@@ -200,11 +200,14 @@ class DatabaseHandler
     public static function selectFromTable(string $table_name, array $where, string $params = null,
                                            bool $only_row = false)
     : array {
-        $sqlQuery = "SELECT * FROM $table_name WHERE";
-        foreach ($where as $field => $value) {
-            $sqlQuery .= " $field = '$value' AND";
+        $sqlQuery = "SELECT * FROM $table_name ";
+        if (!empty($where)) {
+            $sqlQuery .= 'WHERE ';
+            foreach ($where as $field => $value) {
+                $sqlQuery .= " $field = '$value' AND";
+            }
+            $sqlQuery = substr($sqlQuery, 0, -3);
         }
-        $sqlQuery = substr($sqlQuery, 0, -3);
         $sqlQuery .= $params;
         return $only_row ? self::getRow($sqlQuery) : self::getData($sqlQuery);
     }
