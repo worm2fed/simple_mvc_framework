@@ -31,7 +31,7 @@ class SystemTools
     ];
 
     /**
-     * Tranlit
+     * Translit
      *
      * @param string $text
      * @return string
@@ -92,5 +92,15 @@ class SystemTools
             $code .= $chars[mt_rand(0, $len)];
         }
         return $code;
+    }
+
+    /**
+     * Redirect
+     *
+     * @param string $url
+     */
+    public static function redirect(string $url) {
+        header('Location: ' . $url);
+        exit();
     }
 }
