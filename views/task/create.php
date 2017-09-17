@@ -4,90 +4,24 @@
     </h3>
 </div>
 
-<form name="item">
+<form method="post" action="/?post">
     <div class="card card-block">
         <div class="form-group row">
             <label class="col-sm-2 form-control-label text-xs-right"> Name: </label>
             <div class="col-sm-10">
-                <input type="text" class="form-control boxed" placeholder=""> </div>
+                <input type="text" class="form-control boxed" name="name" id="name" required=""> </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 form-control-label text-xs-right"> Email: </label>
             <div class="col-sm-10">
-                <input type="email" class="form-control boxed" placeholder=""> </div>
+                <input type="email" class="form-control boxed" name="email" id="email" required=""> </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 form-control-label text-xs-right"> Text: </label>
             <div class="col-sm-10">
-                <div class="wyswyg">
-                    <div class="toolbar">
-                        <span class="ql-format-group">
-                            <select title="Size" class="ql-size">
-                                <option value="10px">Small</option>
-                                <option value="13px" selected>Normal</option>
-                                <option value="18px">Large</option>
-                                <option value="32px">Huge</option>
-                            </select>
-                        </span>
-                        <span class="ql-format-group">
-                            <span title="Bold" class="ql-format-button ql-bold"></span>
-                            <span class="ql-format-separator"></span>
-                            <span title="Italic" class="ql-format-button ql-italic"></span>
-                            <span class="ql-format-separator"></span>
-                            <span title="Underline" class="ql-format-button ql-underline"></span>
-                            <span class="ql-format-separator"></span>
-                            <span title="Strikethrough" class="ql-format-button ql-strike"></span>
-                        </span>
-                        <span class="ql-format-group">
-                            <select title="Text Color" class="ql-color">
-                                <option value="rgb(0, 0, 0)" label="rgb(0, 0, 0)" selected></option>
-                                <option value="rgb(230, 0, 0)" label="rgb(230, 0, 0)"></option>
-                                <option value="rgb(255, 153, 0)" label="rgb(255, 153, 0)"></option>
-                                <option value="rgb(255, 255, 0)" label="rgb(255, 255, 0)"></option>
-                                <option value="rgb(0, 138, 0)" label="rgb(0, 138, 0)"></option>
-                                <option value="rgb(0, 102, 204)" label="rgb(0, 102, 204)"></option>
-                                <option value="rgb(153, 51, 255)" label="rgb(153, 51, 255)"></option>
-                                <option value="rgb(255, 255, 255)" label="rgb(255, 255, 255)"></option>
-                                <option value="rgb(250, 204, 204)" label="rgb(250, 204, 204)"></option>
-                                <option value="rgb(255, 235, 204)" label="rgb(255, 235, 204)"></option>
-                                <option value="rgb(255, 255, 204)" label="rgb(255, 255, 204)"></option>
-                                <option value="rgb(204, 232, 204)" label="rgb(204, 232, 204)"></option>
-                                <option value="rgb(204, 224, 245)" label="rgb(204, 224, 245)"></option>
-                                <option value="rgb(235, 214, 255)" label="rgb(235, 214, 255)"></option>
-                                <option value="rgb(187, 187, 187)" label="rgb(187, 187, 187)"></option>
-                                <option value="rgb(240, 102, 102)" label="rgb(240, 102, 102)"></option>
-                                <option value="rgb(255, 194, 102)" label="rgb(255, 194, 102)"></option>
-                                <option value="rgb(255, 255, 102)" label="rgb(255, 255, 102)"></option>
-                                <option value="rgb(102, 185, 102)" label="rgb(102, 185, 102)"></option>
-                                <option value="rgb(102, 163, 224)" label="rgb(102, 163, 224)"></option>
-                                <option value="rgb(194, 133, 255)" label="rgb(194, 133, 255)"></option>
-                                <option value="rgb(136, 136, 136)" label="rgb(136, 136, 136)"></option>
-                                <option value="rgb(161, 0, 0)" label="rgb(161, 0, 0)"></option>
-                                <option value="rgb(178, 107, 0)" label="rgb(178, 107, 0)"></option>
-                                <option value="rgb(178, 178, 0)" label="rgb(178, 178, 0)"></option>
-                                <option value="rgb(0, 97, 0)" label="rgb(0, 97, 0)"></option>
-                                <option value="rgb(0, 71, 178)" label="rgb(0, 71, 178)"></option>
-                                <option value="rgb(107, 36, 178)" label="rgb(107, 36, 178)"></option>
-                                <option value="rgb(68, 68, 68)" label="rgb(68, 68, 68)"></option>
-                                <option value="rgb(92, 0, 0)" label="rgb(92, 0, 0)"></option>
-                                <option value="rgb(102, 61, 0)" label="rgb(102, 61, 0)"></option>
-                                <option value="rgb(102, 102, 0)" label="rgb(102, 102, 0)"></option>
-                                <option value="rgb(0, 55, 0)" label="rgb(0, 55, 0)"></option>
-                                <option value="rgb(0, 41, 102)" label="rgb(0, 41, 102)"></option>
-                                <option value="rgb(61, 20, 102)" label="rgb(61, 20, 102)"></option>
-                            </select>
-                        </span>
-                        <span class="ql-format-group">
-                            <span title="List" class="ql-format-button ql-list"></span>
-                            <span class="ql-format-separator"></span>
-                            <span title="Bullet" class="ql-format-button ql-bullet"></span>
-                        </span>
-                    </div>
-                    <!-- Create the editor container -->
-                    <div class="editor"></div>
-                </div>
+                <textarea class=" form-control wyswyg" name="text" id="text" style="resize: none;" required=""></textarea>
             </div>
         </div>
 
@@ -116,15 +50,66 @@
 
         <div class="form-group row">
             <div class="col-sm-10 col-sm-offset-2">
-                <button type="button" class="btn btn-primary"> Preview </button>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#preview-modal" onclick="preview()"> Preview </a>
                 <button type="submit" class="btn btn-warning"> Submit </button>
             </div>
         </div>
     </div>
 </form>
 
+<!-- Start login modal -->
+<div class="modal fade" id="preview-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> Preview </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label text-xs-right"> Name: </label>
+                    <div class="col-sm-10" id="name-preview"></div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label text-xs-right"> Email: </label>
+                    <div class="col-sm-10" id="email-preview"></div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label text-xs-right"> Text: </label>
+                    <div class="col-sm-10" id="text-preview"></div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label text-xs-right"> Image: </label>
+                    <div class="col-sm-10">
+                        <img src="" id="image-preview" style="width: 100%">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- End login modal -->
+
 <script src="/static/js/SimpleAjaxUploader.js"></script>
 <script>
+    function preview() {
+        $('#name-preview').text(''+$('#name').val());
+        $('#email-preview').text(''+$('#email').val());
+        $('#text-preview').text(''+$('#text').val());
+        $('#image-preview').attr('src', '/static/images/'+$('#image_name').val());
+    }
     function escapeTags( str ) {
         return String( str )
             .replace( /&/g, '&amp;' )
