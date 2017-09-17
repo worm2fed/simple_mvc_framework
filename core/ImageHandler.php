@@ -36,7 +36,24 @@ class ImageHandler {
                 $this->_image = imagecreatefrompng($filename);
                 break;
             default:
-                throw new ImageException("`$this->_image_type type does not supported`", E_USER_ERROR);
+                throw new ImageException("`This type $this->_image_type does not supported`", E_USER_ERROR);
+        }
+    }
+
+    /**
+     * Get image extension
+     */
+    public function getExtension()
+    {
+        switch ($this->_image_type) {
+            case IMAGETYPE_JPEG:
+                return 'jpg';
+            case IMAGETYPE_GIF:
+                return 'gif';
+            case IMAGETYPE_PNG:
+                return 'png';
+            default:
+                return 'unknown';
         }
     }
 
@@ -44,15 +61,16 @@ class ImageHandler {
      * Save image to server
      *
      * @param string $filename
-     * @param int $image_type
+     * @param int|null $image_type
      * @param int $compression
      * @param int|null $permissions
      * @throws ImageException
      */
-    public function save(string $filename, int $image_type = IMAGETYPE_JPEG, int $compression = 75,
+    public function save(string $filename, int $image_type = null, int $compression = 75,
                          int $permissions = null)
     : void {
         $path = Config::IMAGE_DIR . $filename;
+        $image_type = $image_type ?? $this->_image_type;
         switch ($image_type) {
             case IMAGETYPE_JPEG:
                 imagejpeg($this->_image, $path, $compression);
@@ -64,7 +82,7 @@ class ImageHandler {
                 imagepng($this->_image, $path);
                 break;
             default:
-                throw new ImageException("`$image_type type does not supported`", E_USER_ERROR);
+                throw new ImageException("`This type $this->_image_type does not supported`", E_USER_ERROR);
         }
         // Set permissions
         if (!is_null($permissions)) {
@@ -91,7 +109,7 @@ class ImageHandler {
                 imagepng($this->_image);
                 break;
             default:
-                throw new ImageException("`$image_type type does not supported`", E_USER_ERROR);
+                throw new ImageException("`This type $this->_image_type does not supported`", E_USER_ERROR);
         }
     }
 

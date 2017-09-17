@@ -23,6 +23,7 @@ $router = new Router();
 // Add routes
 $router->registerRoute('', ['controller' => 'TaskController', 'action' => 'index']);
 $router->registerRoute('create', ['controller' => 'TaskController', 'action' => 'create']);
+$router->registerRoute('image', ['controller' => 'TaskController', 'action' => 'image']);
 $router->registerRoute('update', ['controller' => 'TaskController', 'action' => 'update']);
 $router->registerRoute('login', ['controller' => 'TaskController', 'action' => 'login']);
 $router->registerRoute('logout', ['controller' => 'TaskController', 'action' => 'logout']);

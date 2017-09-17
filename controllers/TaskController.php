@@ -4,6 +4,8 @@ namespace controllers;
 
 
 use core\Controller;
+use core\exceptions\ImageException;
+use core\ImageHandler;
 use core\SessionHandler;
 use core\SystemTools;
 use core\View;
@@ -13,8 +15,6 @@ class TaskController extends Controller
 {
     /**
      * Show the index page - page with all tasks
-     *
-     * @return void
      */
     public function indexAction()
     : void {
@@ -23,8 +23,6 @@ class TaskController extends Controller
 
     /**
      * Create a task
-     *
-     * @return void
      */
     public function createAction()
     : void {
@@ -32,9 +30,22 @@ class TaskController extends Controller
     }
 
     /**
+     * Upload image action
+     */
+    public function imageAction()
+    : void {
+        try {
+            $uploader = new ImageHandler($_FILES['image']['tmp_name']);
+            $image_name = time().'.'.$uploader->getExtension();
+            $uploader->save($image_name);
+            echo json_encode(['success' => true, 'image_name' => $image_name]);
+        } catch (ImageException $e) {
+            echo json_encode(['success' => false, 'msg' => $e->getMessage()]);
+        }
+    }
+
+    /**
      * Update the task
-     *
-     * @return void
      */
     public function updateAction()
     : void {
@@ -42,8 +53,6 @@ class TaskController extends Controller
 
     /**
      * Login
-     *
-     * @return void
      */
     public function loginAction()
     : void {
@@ -53,8 +62,6 @@ class TaskController extends Controller
 
     /**
      * Logout
-     *
-     * @return void
      */
     public function logoutAction()
     : void {
