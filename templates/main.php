@@ -25,7 +25,7 @@
             </div>
         </header>
 
-        <article class="content items-list-page">
+        <article class="content <?= $page_class ?? '' ?>">
             <?php require $__view ?>
         </article>
 

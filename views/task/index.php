@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6">
             <h3 class="title"> Tasks
-                <a href="item-editor.html" class="btn btn-primary btn-sm rounded-s"> Add New </a>
+                <a href="/?create" class="btn btn-primary btn-sm rounded-s"> Add New </a>
             </h3>
             <p class="title-description"> List of tasks... </p>
         </div>

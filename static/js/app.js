@@ -24,11 +24,26 @@ $(function() {
 
     $('.item-actions-toggle-btn').on('click',function(e){
         e.preventDefault();
-
         var $thisActionList = $(this).closest('.item-actions-dropdown');
-
         $itemActions.not($thisActionList).removeClass('active');
-
         $thisActionList.toggleClass('active');
+    });
+});
+
+/***********************************************
+ *        Editor Settings
+ ***********************************************/
+$(function() {
+    $(".wyswyg").each(function() {
+        var $toolbar = $(this).find(".toolbar");
+        var $editor = $(this).find(".editor");
+
+        var editor = new Quill($editor.get(0), {
+            theme: 'snow'
+        });
+
+        editor.addModule('toolbar', {
+            container: $toolbar.get(0)     // Selector for toolbar container
+        });
     });
 });
