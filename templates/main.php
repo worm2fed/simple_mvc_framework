@@ -15,7 +15,9 @@
 <div class="main-wrapper">
     <div class="app" id="app">
         <header class="header">
-            <div class="header-block header-block-search"><h4><?= Config::APP_NAME ?></h4></div>
+            <div class="header-block header-block-search">
+                <h4><?= Config::APP_NAME ?> <?php if (!\models\UserModel::isGuest()): ?> ( <?= \models\UserModel::getUserIfLoggedIn()->username ?> ) <?php endif; ?></h4>
+            </div>
             <div class="header-block header-block-nav">
                 <?php if (\models\UserModel::isGuest()): ?>
                     <a href="#" class="btn btn-success"  data-toggle="modal" data-target="#login-modal"><i class="fa fa-sign-in icon"></i> Login</a>
