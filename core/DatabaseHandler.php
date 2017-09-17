@@ -156,7 +156,7 @@ class DatabaseHandler
             $sqlQuery .= " $field = '$value' AND";
         }
         $sqlQuery = substr($sqlQuery, 0, -3);
-        return self::executeQuery($sqlQuery)['num'];
+        return self::executeQuery($sqlQuery);
     }
 
     /**
