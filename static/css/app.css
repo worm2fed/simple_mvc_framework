@@ -951,11 +951,11 @@ label,
     color: #85CE36; }
   .radio:disabled + span:before,
   .checkbox:disabled + span:before {
-    opacity: 0.5;
+    opacity: 0.75;
     cursor: not-allowed; }
   .radio:checked:disabled + span:before,
   .checkbox:checked:disabled + span:before {
-    color: #c8d0da; }
+    color: #85CE36; }
 
 .checkbox + span:before {
   content: "\f0c8"; }

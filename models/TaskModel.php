@@ -49,17 +49,43 @@ class TaskModel extends Model
         $params = '';
         if (!empty($args)) {
             // Add sort
-            if (isset($args['order_by'])) {
-                $params = ' ORDER BY ' . $args['order_by'];
-            }
+            $params = isset($args['order_by']) ? ' ORDER BY ' . $args['order_by'] : '';
             // Add pagination
-            if (isset($args['page']) and $args['page'] > 1) {
-                $params .= ' LIMIT ' . Config::PAGINATION_LIMIT * ($args['page'] - 1) . ', ' . Config::PAGINATION_LIMIT;
-            } else {
-                $params .= ' LIMIT ' . Config::PAGINATION_LIMIT;
-            }
+            $params .= (isset($args['page']) and $args['page'] > 1) ?
+                ' LIMIT ' . Config::PAGINATION_LIMIT * ($args['page'] - 1) . ', ' . Config::PAGINATION_LIMIT :
+                ' LIMIT ' . Config::PAGINATION_LIMIT;
         }
-        return DatabaseHandler::selectFromTable(self::getTableName(), $where, $params);
+        // Fill array with tasks
+        $tasks = [];
+        foreach (DatabaseHandler::selectFromTable(self::getTableName(), $where, $params, false, false) as $task) {
+            $task_model = new self();
+            $task_model->load($task);
+            array_push($tasks, $task_model);
+        }
+        return $tasks;
+    }
+
+    /**
+     * Get number of pages
+     *
+     * @return int
+     */
+    public static function getPagesNum()
+    : int {
+        return ceil(DatabaseHandler::countEntry(self::getTableName(), 'task_id', []) / Config::PAGINATION_LIMIT);
+    }
+
+    /**
+     * Check is user owner
+     *
+     * @param int $user_id
+     * @return bool
+     */
+    public function isUserOwner(int $user_id)
+    : bool {
+        $user = new self();
+        $user->load(['user_id' => $user_id], true);
+        return $user->username === $this->email;
     }
 
     /**
