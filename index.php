@@ -21,10 +21,11 @@ $session = SessionHandler::getInstance();
 // Create router
 $router = new Router();
 // Add routes
+$router->registerRoute('', ['controller' => 'TaskController', 'action' => 'index']);
+$router->registerRoute('create', ['controller' => 'TaskController', 'action' => 'create']);
+$router->registerRoute('update', ['controller' => 'TaskController', 'action' => 'update']);
 $router->registerRoute('login', ['controller' => 'TaskController', 'action' => 'login']);
 $router->registerRoute('logout', ['controller' => 'TaskController', 'action' => 'logout']);
 
-$router->registerRoute('', ['controller' => 'TaskController', 'action' => 'index']);
-$router->registerRoute('create', ['controller' => 'TaskController', 'action' => 'create']);
 // Start routing
 $router->dispatch($_SERVER['QUERY_STRING']);
