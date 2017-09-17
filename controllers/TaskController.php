@@ -18,7 +18,26 @@ class TaskController extends Controller
      */
     public function indexAction()
     : void {
-        View::renderView('task/index.php', [], 'main.php');
+        View::renderView('task/index.php', ['page_class' => 'items-list-page'], 'main.php');
+    }
+
+    /**
+     * Create a task
+     *
+     * @return void
+     */
+    public function createAction()
+    : void {
+        View::renderView('task/create.php', ['page_class' => 'items-editor-page'], 'main.php');
+    }
+
+    /**
+     * Update the task
+     *
+     * @return void
+     */
+    public function updateAction()
+    : void {
     }
 
     /**
@@ -41,14 +60,5 @@ class TaskController extends Controller
     : void {
         UserModel::logout();
         SystemTools::redirect('/');
-    }
-
-    /**
-     * Create a task
-     *
-     * @return void
-     */
-    public function createAction()
-    : void {
     }
 }
