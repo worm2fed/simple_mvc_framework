@@ -21,6 +21,15 @@ class TaskController extends Controller
     : void {
         $data['tasks'] = TaskModel::find([], $_REQUEST);
         $data['page_class'] = 'items-list-page';
+        $data['pages_num'] = TaskModel::getPagesNum();
+        $data['active_page'] = 1;
+        $data['prev_page'] = '';
+        $data['next_page'] = '/&page=2';
+        if (isset($_REQUEST['page'])) {
+            $data['active_page'] = $_REQUEST['page'];
+            $data['prev_page'] = '/&page=' . ($_REQUEST['page'] - 1);
+            $data['next_page'] = '/&page=' . ($_REQUEST['page'] + 1);
+        }
         View::renderView('task/index.php', $data, 'main.php');
     }
 

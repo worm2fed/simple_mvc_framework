@@ -89,13 +89,15 @@
 <nav class="text-right">
     <ul class="pagination">
         <li class="page-item">
-            <a class="page-link" href=""> Prev </a>
+            <a class="page-link" href="<?= $prev_page ?>"> Prev </a>
         </li>
-        <li class="page-item active">
-            <a class="page-link" href=""> 1 </a>
+        <?php for ($i = 1; $i <= $pages_num; $i++): ?>
+        <li class="page-item <?php if ($i == $active_page): ?> active <?php endif; ?>">
+            <a class="page-link" href="/&page=<?= $i ?>"><?= $i ?></a>
         </li>
+        <?php endfor; ?>
         <li class="page-item">
-            <a class="page-link" href=""> Next </a>
+            <a class="page-link" href="<?= $next_page ?>"> Next </a>
         </li>
     </ul>
 </nav>
