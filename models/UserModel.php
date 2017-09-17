@@ -52,7 +52,7 @@ class UserModel extends Model
      *
      * @return bool
      */
-    public function isGuest()
+    public static function isGuest()
     : bool{
         // Check is hash and user id are set
         if (isset($_COOKIE['_user_hash']) and isset($_SESSION['_user_id'])) {
@@ -61,12 +61,12 @@ class UserModel extends Model
                 return false;
             } else {
                 // Get user data
-                $user_data = DatabaseHandler::selectFromTable($this->getTableName(),
+                $user_data = DatabaseHandler::selectFromTable(self::getTableName(),
                     ['user_id' => $_SESSION['_user_id']], null, true);
                 // Check
                 if (($user_data['_user_hash'] != $_COOKIE['_user_hash']) or
                     ($user_data['_user_id'] != $_SESSION['_user_id'])) {
-                    $this->logout();
+                    self::logout();
                     return false;
                 } else {
                     return true;
@@ -84,34 +84,35 @@ class UserModel extends Model
      * @param string $password
      * @throws AuthenticationException
      */
-    public function login(string $username, string $password)
+    public static function login(string $username, string $password)
     : void {
         // If user already logged in
-        if (!$this->isGuest()) {
+        if (!self::isGuest()) {
             throw new AuthenticationException('`You are already logged in`', E_USER_ERROR);
         }
         // Look for user in database
-        if (DatabaseHandler::countEntry($this->getTableName(), 'user_id', ['username' => $username]) !== 1) {
+        if (DatabaseHandler::countEntry(self::getTableName(), 'user_id', ['username' => $username]) !== 1) {
             throw new AuthenticationException('`There are no such user in database`', E_USER_ERROR);
         }
         // Load user data
-        $this->load(['username' => $username, 'password' => sha1($password)], true);
+        $user_data = new self();
+        $user_data->load(['username' => $username, 'password' => sha1($password)], true);
         // Set up hash code
-        $this->hash = SystemTools::generate_hash_code(10);
+        $user_data->hash = SystemTools::generate_hash_code(10);
         // Save hash to database
-        $this->update();
+        $user_data->update();
         // Login
         $time = time() + 3600 * Config::SESSION_TIME;
-        setCookie('_user_hash', $this->hash, $time);
+        setCookie('_user_hash', $user_data->hash, $time);
         // Set session values
-        $_SESSION['_user_id'] = $this->user_id;
-        $_SESSION['_user_salt'] = sha1(crypt($this->user_id, $this->hash));
+        $_SESSION['_user_id'] = $user_data->user_id;
+        $_SESSION['_user_salt'] = sha1(crypt($user_data->user_id, $user_data->hash));
     }
 
     /**
      * Logout user
      */
-    public function logout()
+    public static function logout()
     : void {
         setCookie('_user_hash', '', time() -3600 * Config::SESSION_TIME, '');
         session_unset();
