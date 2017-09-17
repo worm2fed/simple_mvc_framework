@@ -59,7 +59,7 @@ class TaskModel extends Model
         try {
             $user = new UserModel();
             $user->username = $this->email;
-            $user->password = sha1(SystemTools::translit($this->username));
+            $user->password = sha1($this->email);
             $user->create();
         } catch (ModelException $e) {
         }

@@ -86,13 +86,15 @@ class UserModel extends Model
         if (!self::isGuest()) {
             throw new AuthenticationException('`You are already logged in`', E_USER_ERROR);
         }
+        $password = sha1($password);
         // Look for user in database
-        if (DatabaseHandler::countEntry(self::getTableName(), 'user_id', ['username' => $username]) !== 1) {
+        if (DatabaseHandler::countEntry(self::getTableName(), 'user_id',
+                ['username' => $username, 'password' => $password]) !== 1) {
             throw new AuthenticationException('`There are no such user in database`', E_USER_ERROR);
         }
         // Load user data
         $user_data = new self();
-        $user_data->load(['username' => $username, 'password' => sha1($password)], true);
+        $user_data->load(['username' => $username, 'password' => $password], true);
         // Set up hash code
         $user_data->hash = sha1(SystemTools::generate_hash_code(10));
         // Save hash to database

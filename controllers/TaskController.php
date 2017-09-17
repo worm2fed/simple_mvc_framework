@@ -4,9 +4,9 @@ namespace controllers;
 
 
 use core\Controller;
+use core\exceptions\AuthenticationException;
 use core\exceptions\ImageException;
 use core\ImageHandler;
-use core\SessionHandler;
 use core\SystemTools;
 use core\View;
 use models\TaskModel;
@@ -69,7 +69,11 @@ class TaskController extends Controller
      */
     public function loginAction()
     : void {
-        UserModel::login($_REQUEST['username'], $_REQUEST['password']);
+        try {
+            UserModel::login($_REQUEST['username'], $_REQUEST['password']);
+        } catch (AuthenticationException $e) {
+            exit($e);
+        }
         SystemTools::redirect('/');
     }
 
