@@ -3,6 +3,14 @@
         <div class="col-md-6">
             <h3 class="title"> Tasks
                 <a href="/?create" class="btn btn-primary btn-sm rounded-s"> Add New </a>
+                <div class="action dropdown">
+                    <button class="btn  btn-sm rounded-s btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?= $active_sort ?> </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <a class="dropdown-item" href="/<?php if (isset($_REQUEST['page'])): ?>&page=<?= $_REQUEST['page'] ?><?php endif; ?>&order_by=email">Email</a>
+                        <a class="dropdown-item" href="/<?php if (isset($_REQUEST['page'])): ?>&page=<?= $_REQUEST['page'] ?><?php endif; ?>&order_by=username">Name</a>
+                        <a class="dropdown-item" href="/<?php if (isset($_REQUEST['page'])): ?>&page=<?= $_REQUEST['page'] ?><?php endif; ?>&order_by=status">Status</a>
+                    </div>
+                </div>
             </h3>
             <p class="title-description"> List of tasks... </p>
         </div>
@@ -45,9 +53,7 @@
                         </label>
                     </div>
                     <div class="item-col fixed item-col-img md">
-                        <a href="item-editor.html">
-                            <div class="item-img rounded" style="background-image: url('/static/images/<?= $task->image ?>')"></div>
-                        </a>
+                        <div class="item-img rounded" style="background-image: url('/static/images/<?= $task->image ?>')"></div>
                     </div>
                     <div class="item-col fixed pull-left item-col-title">
                         <div class="no-overflow"> <?= $task->text ?> </div>

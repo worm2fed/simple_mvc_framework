@@ -46,7 +46,6 @@ class TaskModel extends Model
      */
     public static function find(array $where = [], array $args = [])
     : array {
-        $params = '';
         if (!empty($args)) {
             // Add sort
             $params = isset($args['order_by']) ? ' ORDER BY ' . $args['order_by'] : '';

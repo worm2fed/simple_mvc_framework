@@ -23,6 +23,19 @@ class TaskController extends Controller
         $data['page_class'] = 'items-list-page';
         $data['pages_num'] = TaskModel::getPagesNum();
         $data['active_page'] = 1;
+        switch ($_REQUEST['order_by']) {
+            case 'email':
+                $data['active_sort'] = 'Sort by email';
+                break;
+            case 'username':
+                $data['active_sort'] = 'Sort by name';
+                break;
+            case 'status':
+                $data['active_sort'] = 'Sort by status';
+                break;
+            default:
+                $data['active_sort'] = 'Sort by...';
+        }
         $data['prev_page'] = '';
         $data['next_page'] = '/&page=2';
         if (isset($_REQUEST['page'])) {
