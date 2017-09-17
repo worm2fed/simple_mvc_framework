@@ -123,6 +123,7 @@ abstract class Model
         $this->check_is_fields_set();
         $this->beforeCreate();
         $this->validate();
+        unset($this->_fields[$this->getTableName().'_id']);
         DatabaseHandler::insertToTable($this->getTableName(), $this->_fields);
     }
 

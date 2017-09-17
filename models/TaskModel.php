@@ -3,8 +3,10 @@
 namespace models;
 
 
+use core\exceptions\ModelException;
 use core\exceptions\ValidationException;
 use core\Model;
+use core\SystemTools;
 
 /**
  * Class TaskModel
@@ -52,6 +54,14 @@ class TaskModel extends Model
     protected function beforeCreate()
     : void {
         $this->status = 0;
-        $this->published = time();
+        $this->published = date('Y-m-d H:m:s', time());
+        // Create user
+        try {
+            $user = new UserModel();
+            $user->username = $this->email;
+            $user->password = sha1(SystemTools::translit($this->username));
+            $user->create();
+        } catch (ModelException $e) {
+        }
     }
 }

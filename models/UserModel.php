@@ -6,6 +6,7 @@ namespace models;
 use Config;
 use core\DatabaseHandler;
 use core\exceptions\AuthenticationException;
+use core\exceptions\ModelException;
 use core\Model;
 use core\SessionHandler;
 use core\SystemTools;
@@ -38,7 +39,10 @@ class UserModel extends Model
 
     protected function beforeCreate()
     : void {
-        $this->password = sha1(SystemTools::translit($this->username));
+        // Check if exists
+        if (DatabaseHandler::countEntry(self::getTableName(), 'user_id', ['username' => $this->username]) != 0) {
+            throw new ModelException("`User $this->username already exist`", E_USER_ERROR);
+        }
         $this->is_admin = 0;
     }
 

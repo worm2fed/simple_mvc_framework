@@ -9,7 +9,7 @@
         <div class="form-group row">
             <label class="col-sm-2 form-control-label text-xs-right"> Name: </label>
             <div class="col-sm-10">
-                <input type="text" class="form-control boxed" name="name" id="name" required=""> </div>
+                <input type="text" class="form-control boxed" name="username" id="name" required=""> </div>
         </div>
 
         <div class="form-group row">
@@ -31,7 +31,7 @@
                 <div class="upload-container">
                     <div class="col-xs-2">
                         <button type="button" id="uploadBtn" class="btn btn-large btn-primary-outline">Choose File</button>
-                        <input type="hidden" name="image_name" id="image_name" value="">
+                        <input type="hidden" name="image" id="image_name" value="">
                     </div>
                     <div class="col-xs-10">
                         <div id="progressOuter" class="progress progress-striped active" style="display:none;">

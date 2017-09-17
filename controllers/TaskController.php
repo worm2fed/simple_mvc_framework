@@ -9,6 +9,7 @@ use core\ImageHandler;
 use core\SessionHandler;
 use core\SystemTools;
 use core\View;
+use models\TaskModel;
 use models\UserModel;
 
 class TaskController extends Controller
@@ -27,6 +28,18 @@ class TaskController extends Controller
     public function createAction()
     : void {
         View::renderView('task/create.php', ['page_class' => 'items-editor-page'], 'main.php');
+    }
+
+    /**
+     * Post a task
+     */
+    public function postAction()
+    : void {
+        $task = new TaskModel();
+        unset($_REQUEST['post']);
+        $task->load($_REQUEST);
+        $task->create();
+        SystemTools::redirect('/');
     }
 
     /**
