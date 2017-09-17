@@ -28,4 +28,3 @@ $router->registerRoute('', ['controller' => 'TaskController', 'action' => 'index
 $router->registerRoute('create', ['controller' => 'TaskController', 'action' => 'create']);
 // Start routing
 $router->dispatch($_SERVER['QUERY_STRING']);
-echo isset($session->_user_salt) ? $session->_user_salt : 'ops';
