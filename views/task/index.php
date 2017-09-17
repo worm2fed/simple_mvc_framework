@@ -48,7 +48,7 @@
                 <div class="item-row">
                     <div class="item-col fixed item-col-check">
                         <label class="item-check" id="select-all-items">
-                            <input <?php if (\models\UserModel::isGuest()): ?> disabled <?php elseif (!$task->isUserOwner()): ?> disabled <?php endif; ?> type="checkbox" class="checkbox" <?php if ($task->status): ?> checked="" <?php endif; ?>>
+                            <input <?php if (\models\UserModel::isGuest()): ?> disabled <?php elseif (!$task->isUserOwnerOrAdmin()): ?> disabled <?php endif; ?> type="checkbox" class="checkbox" <?php if ($task->status): ?> checked="" <?php endif; ?>>
                             <span></span>
                         </label>
                     </div>
@@ -68,22 +68,9 @@
                         <div class="no-overflow"> <?= $task->published ?> </div>
                     </div>
                     <div class="item-col fixed item-col-actions-dropdown">
-                        <div class="item-actions-dropdown">
-                            <a class="item-actions-toggle-btn">
-                                <span class="inactive"><i class="fa fa-cog"></i></span>
-                                <span class="active"><i class="fa fa-chevron-circle-right"></i></span>
-                            </a>
-                            <div class="item-actions-block">
-                                <ul class="item-actions-list">
-                                    <li>
-                                        <a class="remove" href="#" data-toggle="modal" data-target="#confirm-modal"><i class="fa fa-trash-o "></i></a>
-                                    </li>
-                                    <li>
-                                        <a class="edit" href="item-editor.html"><i class="fa fa-pencil"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <?php if (!\models\UserModel::isGuest() and $task->isUserOwnerOrAdmin()): ?>
+                            <a class="edit" href="#" data-toggle="modal" data-target="#edit-modal" onclick='update("<?= $task->task_id ?>", "<?= \core\SystemTools::escape($task->text) ?>")'><i class="fa fa-pencil"></i></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </li>
@@ -107,3 +94,44 @@
         </li>
     </ul>
 </nav>
+
+<!-- Start edit modal -->
+<div class="modal fade" id="edit-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post" action="/update"">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Edit </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label text-xs-right"> Text: </label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control wyswyg" name="text" id="text" style="resize: none;" required=""></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <input type="hidden" name="task_id" id="task_id" value="">
+                    <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-warning">Save changes</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- End edit modal -->
+
+<script>
+    function update(task_id, text) {
+        $('#task_id').val(task_id);
+        $('#text').val(text);
+    }
+</script>

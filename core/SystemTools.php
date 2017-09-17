@@ -103,4 +103,21 @@ class SystemTools
         header('Location: ' . $url);
         exit();
     }
+
+    /**
+     * Escape string: new line symbols, single and double quotes
+     *
+     * @param string $text
+     * @return string
+     */
+    public static function escape(string $text)
+    : string {
+        return preg_replace("/\"/", '\"',
+            preg_replace("/\r\n|\r|\n/", "",
+                preg_replace("/\'/", '\'',
+                    nl2br($text, false)
+                )
+            )
+        );
+    }
 }

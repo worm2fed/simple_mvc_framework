@@ -5,7 +5,9 @@ namespace controllers;
 
 use core\Controller;
 use core\exceptions\AuthenticationException;
+use core\exceptions\DatabaseException;
 use core\exceptions\ImageException;
+use core\exceptions\ModelException;
 use core\ImageHandler;
 use core\SystemTools;
 use core\View;
@@ -86,6 +88,16 @@ class TaskController extends Controller
      */
     public function updateAction()
     : void {
+        $task = new TaskModel();
+        try {
+            $task->load(['task_id' => $_REQUEST['task_id']], true);
+            $task->text = $_REQUEST['text'];
+            $task->update();
+        } catch (DatabaseException $e) {
+        } catch (ModelException $e) {
+        }
+
+        SystemTools::redirect('/');
     }
 
     /**
@@ -96,7 +108,6 @@ class TaskController extends Controller
         try {
             UserModel::login($_REQUEST['username'], $_REQUEST['password']);
         } catch (AuthenticationException $e) {
-            exit($e);
         }
         SystemTools::redirect('/');
     }
