@@ -80,10 +80,11 @@ class DatabaseHandler
      * Get data form database
      *
      * @param string $sqlQuery
+     * @param bool $num_rows
      * @return array
      * @throws DatabaseException
      */
-    private static function getData(string $sqlQuery)
+    private static function getData(string $sqlQuery, bool $num_rows = true)
     : array {
         try {
             $database_handler = self::getHandler();
@@ -93,7 +94,9 @@ class DatabaseHandler
             // Get result
             $get_result = $statement_handler->get_result();
             $result = $get_result->fetch_all(MYSQLI_ASSOC);
-            $result['num_rows'] = $get_result->num_rows;
+            if ($num_rows) {
+                $result['num_rows'] = $get_result->num_rows;
+            }
         } catch (mysqli_sql_exception $e) {
             self::closeConnection();
             throw new DatabaseException($e->getMessage(), E_USER_ERROR);
@@ -195,10 +198,11 @@ class DatabaseHandler
      * @param array $where
      * @param string|null $params
      * @param bool $only_row
+     * @param bool $num_rows
      * @return array
      */
     public static function selectFromTable(string $table_name, array $where, string $params = null,
-                                           bool $only_row = false)
+                                           bool $only_row = false, bool $num_rows = true)
     : array {
         $sqlQuery = "SELECT * FROM $table_name ";
         if (!empty($where)) {
@@ -209,7 +213,7 @@ class DatabaseHandler
             $sqlQuery = substr($sqlQuery, 0, -3);
         }
         $sqlQuery .= $params;
-        return $only_row ? self::getRow($sqlQuery) : self::getData($sqlQuery);
+        return $only_row ? self::getRow($sqlQuery) : self::getData($sqlQuery, $num_rows);
     }
 
     /**
