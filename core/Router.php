@@ -105,7 +105,7 @@ class Router {
                 throw new RouterException("`Controller class $controller was not found`", E_ERROR);
             }
         } else {
-            throw new RouterException('`There are no matched routes`', 404);
+            throw new RouterException('There are no matched routes', 404);
         }
     }
 

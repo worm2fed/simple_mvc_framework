@@ -5,8 +5,10 @@
  */
 
 use core\ErrorHandler;
+use core\exceptions\RouterException;
 use core\Router;
 use core\SessionHandler;
+use core\View;
 
 // Plug Config and Loader
 require_once 'Config.php';
@@ -29,4 +31,8 @@ $router->registerRoute('login', ['controller' => 'TaskController', 'action' => '
 $router->registerRoute('logout', ['controller' => 'TaskController', 'action' => 'logout']);
 
 // Start routing
-$router->dispatch($_SERVER['QUERY_STRING']);
+try {
+    $router->dispatch($_SERVER['QUERY_STRING']);
+} catch (RouterException $e) {
+    View::renderView('error.php', ['error_code' => $e->getCode(), 'error_message' => $e->getMessage()]);
+}
