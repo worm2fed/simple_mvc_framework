@@ -22,6 +22,9 @@ new ErrorHandler();
 // Create router
 $router = new Router();
 // Add routes
+$router->registerRoute('login', ['controller' => 'MainController', 'action' => 'login']);
+$router->registerRoute('logout', ['controller' => 'MainController', 'action' => 'logout']);
+
 $router->registerRoute('', ['controller' => 'TaskController', 'action' => 'index']);
 $router->registerRoute('create', ['controller' => 'TaskController', 'action' => 'create']);
 // Start routing
