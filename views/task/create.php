@@ -57,7 +57,7 @@
     </div>
 </form>
 
-<!-- Start login modal -->
+<!-- Start preview modal -->
 <div class="modal fade" id="preview-modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -100,7 +100,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!-- End login modal -->
+<!-- End preview modal -->
 
 <script src="/static/js/SimpleAjaxUploader.js"></script>
 <script>
