@@ -39,11 +39,11 @@ class TaskController extends Controller
                 $data['active_sort'] = 'Sort by...';
         }
         $data['prev_page'] = '';
-        $data['next_page'] = '/&page=2';
+        $data['next_page'] = '/&page=2' . (isset($_REQUEST['order_by']) ? '&order_by='.$_REQUEST['order_by'] : '');
         if (isset($_REQUEST['page'])) {
             $data['active_page'] = $_REQUEST['page'];
-            $data['prev_page'] = '/&page=' . ($_REQUEST['page'] - 1);
-            $data['next_page'] = '/&page=' . ($_REQUEST['page'] + 1);
+            $data['prev_page'] = '/&page=' . ($_REQUEST['page'] - 1) . (isset($_REQUEST['order_by']) ? '&order_by='.$_REQUEST['order_by'] : '');;
+            $data['next_page'] = '/&page=' . ($_REQUEST['page'] + 1) . (isset($_REQUEST['order_by']) ? '&order_by='.$_REQUEST['order_by'] : '');;
         }
         View::renderView('task/index.php', $data, 'main.php');
     }
