@@ -7,7 +7,6 @@ use Config;
 use core\exceptions\DatabaseException;
 use mysqli;
 use mysqli_sql_exception;
-use function PHPSTORM_META\type;
 
 /**
  * Class DatabaseHandler provides interaction with database
