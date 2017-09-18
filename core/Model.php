@@ -124,7 +124,7 @@ abstract class Model
         $this->beforeCreate();
         $this->validate();
         // Crutch
-        unset($this->PHPSESSID);
+        unset($this->_fields['PHPSESSID']);
         unset($this->_fields[$this->getTableName().'_id']);
         DatabaseHandler::insertToTable($this->getTableName(), $this->_fields);
     }
