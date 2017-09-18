@@ -50,6 +50,7 @@
 
         <div class="form-group row">
             <div class="col-sm-10 col-sm-offset-2">
+                <a href="/" class="btn btn-secondary"> Cancel </a>
                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#preview-modal" onclick="preview()"> Preview </a>
                 <button type="submit" class="btn btn-warning"> Submit </button>
             </div>
