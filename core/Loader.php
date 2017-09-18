@@ -23,10 +23,8 @@ class Loader
         $filepath = Config::ROOT_DIR . '/' . $file . '.php';
 
         if (file_exists($filepath)) {
-            if (Config::DEBUGGING) echo $filepath . ' was included<br>';
             require_once($filepath);
         } else {
-            if (Config::DEBUGGING) echo 'recursive was started<br>';
             self::recursive_autoload($file, $path, true);
         }
     }
@@ -43,9 +41,7 @@ class Loader
                 if (strpos($dir, '.') === false) {
                     $path2 = $path . '/' . $dir;
                     $filepath = $path2 . '/' . $file . '.php';
-                    if (Config::DEBUGGING) echo 'looking for ' .$file. ' in ' .$filepath . '<br>';
                     if (file_exists($filepath)) {
-                        if (Config::DEBUGGING) echo $filepath . ' was included<br>';
                         $flag = FALSE;
                         require_once($filepath);
                     }
