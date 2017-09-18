@@ -16,7 +16,7 @@
         <div class="form-group row">
             <label class="col-sm-2 form-control-label text-xs-right"> Email: </label>
             <div class="col-sm-10">
-                <input type="email" class="form-control boxed" name="email" id="email" required="" <?php if (!empty($user_email)): ?> disabled <?php endif; ?> value="<?= $user_email ?>">
+                <input type="email" class="form-control boxed" name="email" id="email" required="" <?php if (!empty($user_email)): ?> readonly <?php endif; ?> value="<?= $user_email ?>">
             </div>
         </div>
 

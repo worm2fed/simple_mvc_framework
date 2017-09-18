@@ -5,11 +5,9 @@ namespace models;
 
 use Config;
 use core\DatabaseHandler;
-use core\exceptions\DatabaseException;
 use core\exceptions\ModelException;
 use core\exceptions\ValidationException;
 use core\Model;
-use core\SystemTools;
 
 /**
  * Class TaskModel
@@ -108,11 +106,12 @@ class TaskModel extends Model
     : void {
         $this->status = 0;
         $this->published = date('Y-m-d H:m:s', time());
+
         // Create user
         try {
-            $user = new UserModel();
-            $user->username = $this->email;
-            $user->password = sha1($this->email);
+            $user = UserModel::getUserIfLoggedIn();
+            $user->username = $user->username ?? $this->email;
+            $user->password = $user->password ?? sha1($this->email);
             $user->create();
         } catch (ModelException $e) {
         }
