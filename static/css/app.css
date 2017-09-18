@@ -2120,7 +2120,7 @@ span a {
       width: 16px; }
   @media (max-width: 767px) {
     .items-list-page .title-block .action {
-      display: none; } }
+      /*display: none;*/ } }
 
 .items-list-page .items-search {
   position: absolute;
