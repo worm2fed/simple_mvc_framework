@@ -62,7 +62,8 @@ class TaskController extends Controller
     public function postAction()
     : void {
         $task = new TaskModel();
-        $task->load($_REQUEST['post']);
+        unset($_REQUEST['post']);
+        $task->load($_POST);
         $task->create();
         SystemTools::redirect('/');
     }
