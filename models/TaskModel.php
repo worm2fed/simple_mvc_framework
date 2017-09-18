@@ -46,7 +46,7 @@ class TaskModel extends Model
     : array {
         if (!empty($args)) {
             // Add sort
-            $params = isset($args['order_by']) ? ' ORDER BY ' . $args['order_by'] : '';
+            $params = ' ORDER BY ' . (isset($args['order_by']) ?  $args['order_by'] : ' task_id DESC');
             // Add pagination
             $params .= (isset($args['page']) and $args['page'] > 1) ?
                 ' LIMIT ' . Config::PAGINATION_LIMIT * ($args['page'] - 1) . ', ' . Config::PAGINATION_LIMIT :
