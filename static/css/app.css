@@ -2140,11 +2140,11 @@ span a {
   text-align: left;
   width: auto;
   text-align: center;
-  -ms-flex-preferred-size: 70px;
-      flex-basis: 70px; }
+  -ms-flex-preferred-size: 110px;
+      flex-basis: 100px; }
   @media (min-width: 576px) {
     .items-list-page .item-list .item-col.item-col-img:not(.item-col-header) {
-      height: 80px; } }
+      height: 120px; } }
 
 .items-list-page .item-list .item-col.item-col-title {
   text-align: left;
