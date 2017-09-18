@@ -56,7 +56,7 @@
                         <div class="item-img rounded" style="background-image: url('/static/images/<?= $task->image ?>')"></div>
                     </div>
                     <div class="item-col fixed pull-left item-col-title">
-                        <div class="no-overflow"> <?= $task->text ?> </div>
+                        <div class="no-overflow"> <a href="#" data-toggle="modal" data-target="#view-modal" onclick="view('<?= $task->username ?>', '<?= $task->email ?>', '<?= $task->text ?>', '<?= $task->image ?>')"><?= $task->text ?></a> </div>
                     </div>
                     <div class="item-col item-col-author">
                         <div> <?= $task->username ?> </div>
@@ -129,7 +129,58 @@
 </div>
 <!-- End edit modal -->
 
+<!-- Start view modal -->
+<div class="modal fade" id="view-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> View </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label text-xs-right"> Name: </label>
+                    <div class="col-sm-10" id="name-view"></div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label text-xs-right"> Email: </label>
+                    <div class="col-sm-10" id="email-view"></div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label text-xs-right"> Text: </label>
+                    <div class="col-sm-10" id="text-view"></div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label text-xs-right"> Image: </label>
+                    <div class="col-sm-10">
+                        <img src="" id="image-view" style="max-width: 100%">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- End view modal -->
+
 <script>
+    function view(name, email, text, image) {
+        $('#name-view').text(name);
+        $('#email-view').text(email);
+        $('#text-view').text(text);
+        $('#image-view').attr('src', '/static/images/'+image);
+    }
     function update(task_id, text) {
         $('#task_id').val(task_id);
         $('#text').val(text);
