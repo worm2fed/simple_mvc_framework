@@ -52,7 +52,7 @@ class TaskModel extends Model
                 ' LIMIT ' . Config::PAGINATION_LIMIT * ($args['page'] - 1) . ', ' . Config::PAGINATION_LIMIT :
                 ' LIMIT ' . Config::PAGINATION_LIMIT;
         } else {
-            $params = ' LIMIT ' . Config::PAGINATION_LIMIT;
+            $params = ' ORDER BY published DESC LIMIT ' . Config::PAGINATION_LIMIT;
         }
         // Fill array with tasks
         $tasks = [];
