@@ -53,7 +53,10 @@ class TaskController extends Controller
      */
     public function createAction()
     : void {
-        View::renderView('task/create.php', ['page_class' => 'items-editor-page'], 'main.php');
+        $user = UserModel::getUserIfLoggedIn();
+        $data['page_class'] = 'items-editor-page';
+        $data['user_email'] = $user->is_admin ? '' : $user->username;
+        View::renderView('task/create.php', $data, 'main.php');
     }
 
     /**

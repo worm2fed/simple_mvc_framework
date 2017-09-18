@@ -9,13 +9,15 @@
         <div class="form-group row">
             <label class="col-sm-2 form-control-label text-xs-right"> Name: </label>
             <div class="col-sm-10">
-                <input type="text" class="form-control boxed" name="username" id="name" required=""> </div>
+                <input type="text" class="form-control boxed" name="username" id="name" required="">
+            </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 form-control-label text-xs-right"> Email: </label>
             <div class="col-sm-10">
-                <input type="email" class="form-control boxed" name="email" id="email" required=""> </div>
+                <input type="email" class="form-control boxed" name="email" id="email" required="" value="<?= $user_email ?>">
+            </div>
         </div>
 
         <div class="form-group row">
